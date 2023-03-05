@@ -1,4 +1,3 @@
-    
 import os
 import scrapy
 import smtplib
