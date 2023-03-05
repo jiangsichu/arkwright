@@ -4,10 +4,14 @@ import scrapy
 import smtplib
 from email.mime.text import MIMEText
 
-
+SEEKED_HOUSE = os.environ.get('SEEKED_HOUSE')
+MARKER_FILE_NAME = os.environ.get('MARKER_FILE_NAME')
+MAIL_FROM = os.environ.get('MAIL_FROM')
+MAIL_PWD = os.environ.get('MAIL_FROM')
+MAIL_TO = os.environ.get('MAIL_FROM')
 
 def send_mail(subject, body):
-    msg = MIMEText(body or "")
+    msg = MIMEText(body or '')
     msg['Subject'] = subject
     msg['From'] = MAIL_FROM
     msg['To'] = ', '.join(MAIL_TO)
