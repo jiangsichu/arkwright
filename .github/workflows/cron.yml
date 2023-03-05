@@ -16,4 +16,4 @@ jobs:
           python-version: '3.11' 
           
       - name: Install scrapy
-        run: pip3 --install Scrapy
+        run: pip3 install Scrapy
