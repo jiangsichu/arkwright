@@ -1,7 +1,7 @@
 on:
-  pull_request:
+  push:
     branches:
-      - 'main'
+      - main
   schedule:
     - cron:  '*/5 * * * *'
     
@@ -10,10 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.11' 
-          
-      - name: Install scrapy
+          python-version: '3.11'
+      - name: Install Scrapy
         run: pip install Scrapy
+      - name: Run Spider
+        env:
+          MAIL_FROM: ${{secrets.MAIL_FROM}}
+          MAIL_PWD: ${{secrets.MAIL_PWD}}
+          MAIL_TO: ${{secrets.MAIL_TO}}
+        run: scrapy crawl houses -O houses.json
