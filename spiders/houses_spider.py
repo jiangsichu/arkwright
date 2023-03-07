@@ -3,11 +3,10 @@ import scrapy
 import smtplib
 from email.mime.text import MIMEText
 
-SEEKED_HOUSE = os.environ.get('SEEKED_HOUSE')
-MARKER_FILE_NAME = os.environ.get('MARKER_FILE_NAME')
 MAIL_FROM = os.environ.get('MAIL_FROM')
-MAIL_PWD = os.environ.get('MAIL_FROM')
-MAIL_TO = os.environ.get('MAIL_FROM')
+MAIL_PWD = os.environ.get('MAIL_PWD')
+MAIL_TO = os.environ.get('MAIL_TO')
+SEEKED_HOUSE = os.environ.get('SEEKED_HOUSE')
 
 def send_mail(subject, body):
     msg = MIMEText(body or '')
@@ -29,11 +28,9 @@ class HousesSpider(scrapy.Spider):
             price = house.css('span.result-pricing strong::text').get()
             self.logger.debug('House type: %s, price: %s', title, price)
             
-            if not os.path.exists(MARKER_FILE_NAME) and title == SEEKED_HOUSE:
-                self.logger.info('Found %s! Sending email.', title)
+            if title == SEEKED_HOUSE:
+                self.logger.info('Sending email for house: %s, price: %s', title, price)
                 send_mail(subject=title, body=price)
-                f = open(MARKER_FILE_NAME, "x")
-                f.close()
 
             yield {
                 'title': title,
