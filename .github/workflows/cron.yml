@@ -16,7 +16,7 @@ jobs:
       - name: Set up virtual environment
         run: python3 -m venv scrapy-env && source scrapy-env/bin/activate
       - name: Install Scrapy
-        run: pip install scrapy && pwd && ls && ls .. && ls ../..
+        run: pip install scrapy && pwd && echo "\n" && ls && echo "\n" && ls .. && echo "\n" && ls ../..
       - name: Run Spider
         env:
           MAIL_FROM: ${{secrets.MAIL_FROM}}
