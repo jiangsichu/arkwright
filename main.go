@@ -21,6 +21,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	log.Println("Starting crawler")
 	ch := make(chan interface{}, 1)
 	c.OnHTML("body > main > div:nth-child(1) > div > div.details.static > div.left > span:nth-child(2)", func(e *colly.HTMLElement) {
 		txt := e.Text
